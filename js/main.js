@@ -46,18 +46,38 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ---- Access request form ----
-  // Standard POST to Formspree (NOT AJAX): Formspree rejects AJAX when reCAPTCHA
-  // is enabled on the free plan, so we let the browser submit the form normally.
-  // Formspree runs its reCAPTCHA challenge, records the submission, emails both
-  // founders, and redirects to the `_next` URL (thanks.html). No JS interception
-  // needed. We only add a tiny UX touch: disable the button on submit so it
-  // can't be double-fired.
+  // ---- Access request form (inline AJAX submit to Formspree) ----
+  // reCAPTCHA is OFF on the Formspree form, so AJAX works: the page never
+  // reloads, the visitor gets an inline confirmation, and the honeypot field
+  // (_gotcha) plus Formspree's own spam filtering guard against bots.
   const form = document.getElementById('access-form');
   if (form) {
-    form.addEventListener('submit', () => {
-      const btn = form.querySelector('button[type="submit"]');
+    const ok = document.getElementById('form-ok');
+    const err = document.getElementById('form-err');
+    const btn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (ok) ok.hidden = true;
+      if (err) err.hidden = true;
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      try {
+        const res = await fetch(form.getAttribute('action'), {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          form.reset();
+          if (ok) ok.hidden = false;
+          if (btn) btn.textContent = 'Sent ✓';
+        } else {
+          if (err) err.hidden = false;
+          if (btn) { btn.disabled = false; btn.textContent = 'Send message'; }
+        }
+      } catch (_) {
+        if (err) err.hidden = false;
+        if (btn) { btn.disabled = false; btn.textContent = 'Send message'; }
+      }
     });
   }
 
