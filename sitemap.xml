@@ -8,4 +8,6 @@
   <url><loc>https://oapsoftware.com/company.html</loc><priority>0.7</priority></url>
   <url><loc>https://oapsoftware.com/contact.html</loc><priority>0.7</priority></url>
   <url><loc>https://oapsoftware.com/legal.html</loc><priority>0.3</priority></url>
+  <url><loc>https://oapsoftware.com/privacy.html</loc><priority>0.3</priority></url>
+  <url><loc>https://oapsoftware.com/terms.html</loc><priority>0.3</priority></url>
 </urlset>
