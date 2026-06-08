@@ -1,4 +1,4 @@
-// OAP Software — shared interactions
+// OAP Software, shared interactions
 (function () {
   const root = document.documentElement;
 
@@ -56,7 +56,7 @@
       // If no real endpoint configured yet, fall back gracefully.
       if (action.includes('OAP_FORM_ID')) {
         e.preventDefault();
-        if (ok) { ok.hidden = false; ok.textContent = 'Thanks — the request form is being connected. Please check back shortly.'; }
+        if (ok) { ok.hidden = false; ok.textContent = 'Thanks. The request form is being connected, please check back shortly.'; }
         return;
       }
       e.preventDefault();
