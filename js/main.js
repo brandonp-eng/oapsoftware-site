@@ -46,33 +46,18 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ---- Access request form (Formspree-style AJAX submit) ----
+  // ---- Access request form ----
+  // Standard POST to Formspree (NOT AJAX): Formspree rejects AJAX when reCAPTCHA
+  // is enabled on the free plan, so we let the browser submit the form normally.
+  // Formspree runs its reCAPTCHA challenge, records the submission, emails both
+  // founders, and redirects to the `_next` URL (thanks.html). No JS interception
+  // needed. We only add a tiny UX touch: disable the button on submit so it
+  // can't be double-fired.
   const form = document.getElementById('access-form');
   if (form) {
-    const ok = document.getElementById('form-ok');
-    const err = document.getElementById('form-err');
-    form.addEventListener('submit', async (e) => {
-      const action = form.getAttribute('action') || '';
-      // If no real endpoint configured yet, fall back gracefully.
-      if (action.includes('OAP_FORM_ID')) {
-        e.preventDefault();
-        if (ok) { ok.hidden = false; ok.textContent = 'Thanks. The request form is being connected, please check back shortly.'; }
-        return;
-      }
-      e.preventDefault();
-      if (ok) ok.hidden = true;
-      if (err) err.hidden = true;
-      try {
-        const res = await fetch(action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        });
-        if (res.ok) { form.reset(); if (ok) ok.hidden = false; }
-        else if (err) err.hidden = false;
-      } catch (_) {
-        if (err) err.hidden = false;
-      }
+    form.addEventListener('submit', () => {
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
     });
   }
 
