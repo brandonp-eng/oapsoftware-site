@@ -4,9 +4,16 @@
 
   // ---- Theme (default dark for an intelligence product) ----
   const toggle = document.querySelector('[data-theme-toggle]');
+  const THEME_KEY = 'oap.theme';
   let theme = 'dark';
   try {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === 'light' || saved === 'dark') {
+      // A previously chosen theme always wins, and persists across pages.
+      theme = saved;
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      theme = 'light';
+    }
   } catch (e) {}
   root.setAttribute('data-theme', theme);
 
@@ -20,6 +27,7 @@
     toggle.addEventListener('click', () => {
       theme = theme === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', theme);
+      try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
       toggle.innerHTML = icon(theme);
       toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
     });
