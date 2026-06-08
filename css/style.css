@@ -72,13 +72,15 @@
 /* On light surfaces the bright cyan is reserved for fills/glows; a deeper
    ocean-blue primary carries text/links so contrast stays accessible (AA). */
 [data-theme='light'] {
-  --color-bg: #f4f7fc;
-  --color-surface: #ffffff;
-  --color-surface-2: #eef3fa;
-  --color-surface-offset: #e7eef8;
-  --color-divider: #dbe4f1;
-  --color-border: #cdd9ea;
-  --color-border-strong: #aebfda;
+  /* Soft light-grey palette (no harsh pure white). Page sits on a calm grey;
+     cards/surfaces are a touch lighter so they still read as raised. */
+  --color-bg: #eceef2;
+  --color-surface: #f4f6f9;
+  --color-surface-2: #e6eaf0;
+  --color-surface-offset: #dfe4ec;
+  --color-divider: #d3dae5;
+  --color-border: #c6cfdc;
+  --color-border-strong: #aab6c9;
 
   --color-text: #0c1a40;
   --color-text-muted: #46587e;
