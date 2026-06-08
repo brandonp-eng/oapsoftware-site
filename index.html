@@ -175,6 +175,28 @@
  </section>
 
  <!-- ===== CTA ===== -->
+ <section class="section grid-bg" id="updates">
+ <div class="container container--default">
+ <div class="reveal" style="text-align:center; margin-bottom:var(--space-8);">
+ <span class="eyebrow" style="justify-content:center;">Get release updates</span>
+ <h2>We're still perfecting the OSINT App Platform.</h2>
+ <p class="section-lead" style="margin:0 auto;">Sign up to get email updates as we get closer to release.</p>
+ </div>
+ <form id="waitlist-form" class="form-grid reveal" action="https://formspree.io/f/mbdeowkd" method="POST" style="max-width:640px; margin:0 auto;">
+ <div class="field"><label for="wl-name">Name</label><input id="wl-name" name="name" type="text" placeholder="Your name" /></div>
+ <div class="field"><label for="wl-org">Organization</label><input id="wl-org" name="organization" type="text" placeholder="Company or team" /></div>
+ <div class="field"><label for="wl-email">Email</label><input id="wl-email" name="email" type="email" required placeholder="you@organization.com" /></div>
+ <div class="field"><label for="wl-size">Organization size</label><select id="wl-size" name="organization_size"><option>Just me / Individual</option><option>2-10</option><option>11-50</option><option>51-200</option><option>201-1,000</option><option>1,000+</option></select></div>
+ <input type="hidden" name="_subject" value="New OAP updates signup" />
+ <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+ <button type="submit" class="btn btn--primary btn--lg" style="justify-self:start;">Keep me posted</button>
+ <p id="wl-ok" hidden style="color:var(--color-primary); font-size:var(--text-sm);">Thanks. You're on the list, we'll email you OAP updates as we get closer to release.</p>
+ <p id="wl-err" hidden style="color:var(--color-warning); font-size:var(--text-sm);">Something went wrong. Please try again in a moment.</p>
+ <p class="muted" style="font-size:var(--text-sm); margin-top:var(--space-2);">No spam. We'll only use your email to send you OAP updates regarding release dates or new features. We promise, no spam...EVER. Unsubscribe anytime. <em>We will never sell, give away, or share your information.</em></p>
+ </form>
+ </div>
+ </section>
+
  <section class="section">
  <div class="container">
  <div class="cta-band reveal">
@@ -203,6 +225,7 @@
  </span>
  </a>
  <p>The OSINT App Platform: intelligence-grade collection, correlation, and reporting. After truth, and what we can prove.</p>
+ <a class="footer__social" href="https://www.linkedin.com/company/oapsoftware/" target="_blank" rel="noopener" aria-label="Follow OAP Software & Development on LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg><span>Follow us on LinkedIn</span></a>
  </div>
  <div><h4>Platform</h4><ul role="list"><li><a href="platform.html">How it works</a></li><li><a href="capabilities.html">Capabilities</a></li><li><a href="security.html">Security &amp; Trust</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
  <div><h4>Company</h4><ul role="list"><li><a href="company.html">About OAP</a></li><li><a href="company.html#doctrine">Our doctrine</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html">Request access</a></li></ul></div>

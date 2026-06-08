@@ -89,6 +89,41 @@
     });
   }
 
+  // ---- Release-updates waitlist form (inline AJAX submit to Formspree) ----
+  // Separate Formspree endpoint from the access-request form so updates
+  // signups stay distinct. Same proven pattern: no page reload, inline
+  // confirmation, honeypot (_gotcha) + Formspree spam filtering.
+  const wlForm = document.getElementById('waitlist-form');
+  if (wlForm) {
+    const wlOk = document.getElementById('wl-ok');
+    const wlErr = document.getElementById('wl-err');
+    const wlBtn = wlForm.querySelector('button[type="submit"]');
+    wlForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (wlOk) wlOk.hidden = true;
+      if (wlErr) wlErr.hidden = true;
+      if (wlBtn) { wlBtn.disabled = true; wlBtn.textContent = 'Signing up…'; }
+      try {
+        const res = await fetch(wlForm.getAttribute('action'), {
+          method: 'POST',
+          body: new FormData(wlForm),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          wlForm.reset();
+          if (wlOk) wlOk.hidden = false;
+          if (wlBtn) wlBtn.textContent = 'You\u2019re on the list ✓';
+        } else {
+          if (wlErr) wlErr.hidden = false;
+          if (wlBtn) { wlBtn.disabled = false; wlBtn.textContent = 'Keep me posted'; }
+        }
+      } catch (_) {
+        if (wlErr) wlErr.hidden = false;
+        if (wlBtn) { wlBtn.disabled = false; wlBtn.textContent = 'Keep me posted'; }
+      }
+    });
+  }
+
   // ---- Scroll reveal ----
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
