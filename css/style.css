@@ -241,7 +241,10 @@ a, button, [role='button'], input, textarea, select {
 .nav { display: flex; align-items: center; gap: var(--space-8); height: 6.5rem; }
 .nav__brand { display: inline-flex; align-items: center; gap: var(--space-3); }
 /* Emblem-only mark (with subtle green ring) + live theme-aware wordmark */
-.nav__brand .brand-emblem { height: 3.4rem; width: 3.4rem; display: block; flex-shrink: 0; }
+.nav__brand .brand-emblem {
+  height: 3.4rem; width: 3.4rem; min-width: 3.4rem; display: block; flex-shrink: 0;
+  aspect-ratio: 1 / 1; object-fit: contain;
+}
 .nav__brand .brand-wordmark { display: flex; flex-direction: column; line-height: 1; }
 .nav__brand .brand-name {
   font-family: var(--font-display); font-weight: 800; font-size: 1.85rem; letter-spacing: 0.01em;
@@ -433,7 +436,7 @@ a, button, [role='button'], input, textarea, select {
 @media (max-width: 820px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .footer__grid { grid-template-columns: 1fr; } }
 .footer__brand .nav__brand { margin-bottom: var(--space-4); }
-.footer__brand .brand-emblem { height: 3rem; width: 3rem; }
+.footer__brand .brand-emblem { height: 3rem; width: 3rem; min-width: 3rem; aspect-ratio: 1 / 1; object-fit: contain; }
 .footer__brand .brand-name { font-size: 1.6rem; }
 .footer__brand p { color: var(--color-text-muted); font-size: var(--text-sm); max-width: 34ch; }
 .footer__social { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: var(--space-4); padding: 0.5rem 0.85rem; border: 1px solid var(--color-primary-border); border-radius: 8px; color: var(--color-text-muted); font-size: var(--text-sm); font-weight: 600; transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease; }
