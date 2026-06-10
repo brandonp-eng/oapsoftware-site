@@ -252,6 +252,11 @@ a, button, [role='button'], input, textarea, select {
   font-family: var(--font-body); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em;
   color: var(--color-text-muted); margin-top: 0.3rem;
 }
+/* Trademark mark: small superscript that does not inherit the wordmark size. */
+.brand-name .brand-tm {
+  font-size: 0.42em; font-weight: 600; vertical-align: super; letter-spacing: 0;
+  margin-left: 0.06em; border-bottom: none;
+}
 @media (max-width: 600px) {
   .nav__brand .brand-emblem { height: 2.8rem; width: 2.8rem; }
   .nav__brand .brand-name { font-size: 1.5rem; }
