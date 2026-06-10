@@ -258,6 +258,11 @@ a, button, [role='button'], input, textarea, select {
   font-family: var(--font-body); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--color-primary); margin-top: 0.34rem;
 }
+/* Maker line under the descriptor: who makes it. Small, muted, sentence case. */
+.nav__brand .brand-maker {
+  font-family: var(--font-body); font-weight: 500; font-size: 0.62rem; letter-spacing: 0.01em;
+  color: var(--color-text-muted); margin-top: 0.16rem;
+}
 /* Trademark mark: small superscript that does not inherit the wordmark size. */
 .brand-name .brand-tm {
   font-size: 0.42em; font-weight: 600; vertical-align: super; letter-spacing: 0;
@@ -268,6 +273,7 @@ a, button, [role='button'], input, textarea, select {
   .nav__brand .brand-name { font-size: 1.5rem; }
   .nav__brand .brand-tag { font-size: 0.68rem; }
   .nav__brand .brand-desc { font-size: 0.62rem; letter-spacing: 0.04em; }
+  .nav__brand .brand-maker { font-size: 0.56rem; }
 }
 .nav__links { display: flex; align-items: center; gap: var(--space-6); margin-left: auto; }
 .nav__links a { font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 500; }
