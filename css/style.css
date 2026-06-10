@@ -252,6 +252,12 @@ a, button, [role='button'], input, textarea, select {
   font-family: var(--font-body); font-weight: 600; font-size: 0.74rem; letter-spacing: 0.02em;
   color: var(--color-text-muted); margin-top: 0.3rem;
 }
+/* Product descriptor under the OAP wordmark (Option 1 lockup): OAP is the hero,
+   "OSINT App Platform" spells out what it is. Small uppercase, brand-tinted. */
+.nav__brand .brand-desc {
+  font-family: var(--font-body); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--color-primary); margin-top: 0.34rem;
+}
 /* Trademark mark: small superscript that does not inherit the wordmark size. */
 .brand-name .brand-tm {
   font-size: 0.42em; font-weight: 600; vertical-align: super; letter-spacing: 0;
@@ -261,6 +267,7 @@ a, button, [role='button'], input, textarea, select {
   .nav__brand .brand-emblem { height: 2.8rem; width: 2.8rem; }
   .nav__brand .brand-name { font-size: 1.5rem; }
   .nav__brand .brand-tag { font-size: 0.68rem; }
+  .nav__brand .brand-desc { font-size: 0.62rem; letter-spacing: 0.04em; }
 }
 .nav__links { display: flex; align-items: center; gap: var(--space-6); margin-left: auto; }
 .nav__links a { font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 500; }

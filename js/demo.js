@@ -328,7 +328,7 @@
     var nav = el('<aside class="shell-nav"></aside>');
     nav.appendChild(el(
       '<div class="shell-brand">' + logoRing('') +
-      '<div><div class="nm">OSINT App Platform</div><div class="sub">Intelligence Platform</div></div></div>'
+      '<div><div class="nm">OSINT App Platform<sup style="font-size:7px;font-weight:600;vertical-align:super;margin-left:1px;">TM</sup></div><div class="sub">by OAP Software &amp; Development</div></div></div>'
     ));
     var groups = ['Workspace', 'System'];
     groups.forEach(function (g) {
