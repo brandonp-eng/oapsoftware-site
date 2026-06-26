@@ -1,20 +1,12 @@
-// OAP Software, shared interactions
+// OAP Software — shared interactions
 (function () {
   const root = document.documentElement;
 
   // ---- Theme (default dark for an intelligence product) ----
   const toggle = document.querySelector('[data-theme-toggle]');
-  const THEME_KEY = 'oap.theme';
-  const store = (window.oapStore || { local: { getItem: function () { return null; }, setItem: function () {} } });
   let theme = 'dark';
   try {
-    const saved = store.local.getItem(THEME_KEY);
-    if (saved === 'light' || saved === 'dark') {
-      // A previously chosen theme always wins, and persists across pages.
-      theme = saved;
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      theme = 'light';
-    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
   } catch (e) {}
   root.setAttribute('data-theme', theme);
 
@@ -28,7 +20,6 @@
     toggle.addEventListener('click', () => {
       theme = theme === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', theme);
-      try { store.local.setItem(THEME_KEY, theme); } catch (e) {}
       toggle.innerHTML = icon(theme);
       toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
     });
@@ -55,72 +46,32 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // ---- Access request form (inline AJAX submit to Formspree) ----
-  // reCAPTCHA is OFF on the Formspree form, so AJAX works: the page never
-  // reloads, the visitor gets an inline confirmation, and the honeypot field
-  // (_gotcha) plus Formspree's own spam filtering guard against bots.
+  // ---- Access request form (Formspree-style AJAX submit) ----
   const form = document.getElementById('access-form');
   if (form) {
     const ok = document.getElementById('form-ok');
     const err = document.getElementById('form-err');
-    const btn = form.querySelector('button[type="submit"]');
     form.addEventListener('submit', async (e) => {
+      const action = form.getAttribute('action') || '';
+      // If no real endpoint configured yet, fall back gracefully.
+      if (action.includes('xwvjobjg')) {
+        e.preventDefault();
+        if (ok) { ok.hidden = false; ok.textContent = 'Thanks — the request form is being connected. Please check back shortly.'; }
+        return;
+      }
       e.preventDefault();
       if (ok) ok.hidden = true;
       if (err) err.hidden = true;
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       try {
-        const res = await fetch(form.getAttribute('action'), {
+        const res = await fetch(action, {
           method: 'POST',
           body: new FormData(form),
           headers: { Accept: 'application/json' },
         });
-        if (res.ok) {
-          form.reset();
-          if (ok) ok.hidden = false;
-          if (btn) btn.textContent = 'Sent ✓';
-        } else {
-          if (err) err.hidden = false;
-          if (btn) { btn.disabled = false; btn.textContent = 'Send message'; }
-        }
+        if (res.ok) { form.reset(); if (ok) ok.hidden = false; }
+        else if (err) err.hidden = false;
       } catch (_) {
         if (err) err.hidden = false;
-        if (btn) { btn.disabled = false; btn.textContent = 'Send message'; }
-      }
-    });
-  }
-
-  // ---- Release-updates waitlist form (inline AJAX submit to Formspree) ----
-  // Separate Formspree endpoint from the access-request form so updates
-  // signups stay distinct. Same proven pattern: no page reload, inline
-  // confirmation, honeypot (_gotcha) + Formspree spam filtering.
-  const wlForm = document.getElementById('waitlist-form');
-  if (wlForm) {
-    const wlOk = document.getElementById('wl-ok');
-    const wlErr = document.getElementById('wl-err');
-    const wlBtn = wlForm.querySelector('button[type="submit"]');
-    wlForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (wlOk) wlOk.hidden = true;
-      if (wlErr) wlErr.hidden = true;
-      if (wlBtn) { wlBtn.disabled = true; wlBtn.textContent = 'Signing up…'; }
-      try {
-        const res = await fetch(wlForm.getAttribute('action'), {
-          method: 'POST',
-          body: new FormData(wlForm),
-          headers: { Accept: 'application/json' },
-        });
-        if (res.ok) {
-          wlForm.reset();
-          if (wlOk) wlOk.hidden = false;
-          if (wlBtn) wlBtn.textContent = 'You\u2019re on the list ✓';
-        } else {
-          if (wlErr) wlErr.hidden = false;
-          if (wlBtn) { wlBtn.disabled = false; wlBtn.textContent = 'Keep me posted'; }
-        }
-      } catch (_) {
-        if (wlErr) wlErr.hidden = false;
-        if (wlBtn) { wlBtn.disabled = false; wlBtn.textContent = 'Keep me posted'; }
       }
     });
   }
